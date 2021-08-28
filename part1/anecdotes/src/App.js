@@ -4,6 +4,18 @@ const Button = ({ handleClick, text }) => {
   return <button onClick={handleClick}>{text}</button>;
 };
 
+const MostVotes = ({ votes, anecdotes }) => {
+  const max = Math.max(...votes);
+  const most = votes.indexOf(max);
+  return (
+    <div>
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[most]}</p>
+      <p>has {max} votes</p>
+    </div>
+  );
+};
+
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often",
@@ -37,14 +49,14 @@ const App = () => {
     setVotes(update);
   };
 
-  console.log(votes);
-
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
       <Button handleClick={handleVotes} text="vote" />
       <Button handleClick={handleClick} text="next anecdotes" />
+      <MostVotes votes={votes} anecdotes={anecdotes} />
     </div>
   );
 };
