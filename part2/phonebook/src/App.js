@@ -10,12 +10,21 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [message, setMessage] = useState(null);
+
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    personService.getAll().then((initialData) => {
-      setPersons(initialData);
-    });
+    personService
+      .getAll()
+      .then((initialData) => {
+        setPersons(initialData);
+      })
+      .catch((error) => {
+        setMessage(`[error] Couldn't Get Data from the Server`);
+        setTimeout(() => {
+          setMessage(null);
+        }, 3000);
+      });
   }, []);
 
   const addPerson = (e) => {
@@ -40,16 +49,24 @@ const App = () => {
         personService
           .update(newPerson, isAlreadyAdded.id)
           .then((updatedPerson) => {
-            return setPersons(
+            setPersons(
               persons.map((person) =>
                 person.id === newPerson.id ? changedPerson : person
               )
             );
+            setMessage(`New Number added to ${newName}`);
+            setTimeout(() => {
+              setMessage(null);
+            }, 3000);
+          })
+          .catch((error) => {
+            setMessage(
+              `[error] ${newPerson.name} has already been removed from server`
+            );
+            setTimeout((error) => {
+              setMessage(null);
+            }, 3000);
           });
-        setMessage(`New Number added to ${newName}`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 3000);
       }
     } else {
       const newPerson = {
@@ -57,13 +74,22 @@ const App = () => {
         number: newNumber,
       };
 
-      personService.create(newPerson).then((createdPerson) => {
-        setPersons(persons.concat(createdPerson));
-      });
-      setMessage(`Added ${newName}`);
-      setTimeout(() => {
-        setMessage(null);
-      }, 3000);
+      personService
+        .create(newPerson)
+        .then((createdPerson) => {
+          setPersons(persons.concat(createdPerson));
+          setMessage(`Added ${newName}`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
+        })
+        .catch((error) => {
+          console.log(error);
+          setMessage(`[error] Couldn't add ${newName} to the server`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
+        });
     }
 
     setNewName("");
@@ -72,26 +98,31 @@ const App = () => {
 
   const handleNameChange = (e) => {
     setNewName(e.target.value);
-    console.log(e.target.value);
-    console.log(e.target);
   };
   const handleNumberChange = (e) => {
     setNewNumber(e.target.value);
-    console.log(e.target.value);
-    console.log(newNumber);
-    console.log(e.target);
   };
 
   const handleDeleteOf = ({ id, name }) => {
     if (window.confirm(`Delete ${name}?`)) {
-      personService.remove(id);
+      personService
+        .remove(id)
+        .then(() => {
+          setMessage(`${name} was deleted`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
+        })
+        .catch((error) => {
+          console.log(error);
+          setMessage(`[error] ${name} was already deleted`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
+        });
     }
     const afterDeletePerson = persons.filter((p) => p.name !== name);
     setPersons(afterDeletePerson);
-    setMessage(`${name} was deleted`);
-    setTimeout(() => {
-      setMessage(null);
-    }, 3000);
   };
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
@@ -106,6 +137,7 @@ const App = () => {
   return (
     <div>
       <Message message={message} />
+
       <h2>Phonebook</h2>
 
       <Filter search={search} handleSearchChange={handleSearchChange} />
