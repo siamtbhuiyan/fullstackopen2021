@@ -1,10 +1,11 @@
 import React from "react";
 
-const Filter = ({ search, handleSearchChange }) => {
+const Filter = ({ search, setSearch }) => {
   return (
     <form>
       <div>
-        name: <input value={search} onChange={handleSearchChange} />
+        name:{" "}
+        <input value={search} onChange={(e) => setSearch(e.target.value)} />
       </div>
     </form>
   );

@@ -124,15 +124,6 @@ const App = () => {
     const afterDeletePerson = persons.filter((p) => p.name !== name);
     setPersons(afterDeletePerson);
   };
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-    const filteredPersons = () =>
-      persons.filter((person) =>
-        person.name.toLowerCase().includes(e.target.value.toLowerCase())
-      );
-
-    setPersons(filteredPersons);
-  };
 
   return (
     <div>
@@ -140,7 +131,7 @@ const App = () => {
 
       <h2>Phonebook</h2>
 
-      <Filter search={search} handleSearchChange={handleSearchChange} />
+      <Filter search={search} setSearch={setSearch} />
 
       <h2>add a new</h2>
       <PersonForm
@@ -151,16 +142,24 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      {persons.map((person) => {
-        return (
-          <p key={person.id}>
-            <Persons
-              person={person}
-              handleDelete={() => handleDeleteOf(person)}
-            />
-          </p>
-        );
-      })}
+      {persons
+        .filter((p) => {
+          if (p === "") {
+            return p;
+          } else {
+            return p.name.toLowerCase().includes(search.toLowerCase());
+          }
+        })
+        .map((person) => {
+          return (
+            <p key={person.id}>
+              <Persons
+                person={person}
+                handleDelete={() => handleDeleteOf(person)}
+              />
+            </p>
+          );
+        })}
     </div>
   );
 };
