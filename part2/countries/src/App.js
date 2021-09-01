@@ -1,27 +1,24 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import Countries from "./components/Countries";
 import countryService from "./services/countries";
 
 const App = () => {
   const [search, setSearch] = useState("");
-  const [countries, setCountries] = useState();
+  const [countries, setCountries] = useState([]);
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
-
-  countryService.getAll().then((response) => {
-    setCountries(response);
-    // console.log(response);
-  });
-  console.log(countries);
+  useEffect(() => {
+    countryService.getAll().then((response) => {
+      setCountries(response);
+    });
+  }, []);
 
   return (
     <div>
-      <input value={search} onChange={handleSearchChange} />
-      {countries.map((country) => {
-        <h3>{country.name}</h3>;
-      })}
+      Search: <input value={search} onChange={handleSearchChange} />
+      <Countries search={search} countries={countries} setSearch={setSearch} />
     </div>
   );
 };
