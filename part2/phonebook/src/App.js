@@ -77,15 +77,17 @@ const App = () => {
       personService
         .create(newPerson)
         .then((createdPerson) => {
-          setPersons(persons.concat(createdPerson));
+          const afterAddingPerson = persons.concat(createdPerson);
+          setPersons(afterAddingPerson);
+
           setMessage(`Added ${newName}`);
           setTimeout(() => {
             setMessage(null);
           }, 3000);
         })
         .catch((error) => {
-          console.log(error);
-          setMessage(`[error] Couldn't add ${newName} to the server`);
+          console.log(error.response.data);
+          setMessage(`[error] ${error.response.data.error}`);
           setTimeout(() => {
             setMessage(null);
           }, 3000);

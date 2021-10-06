@@ -15,6 +15,8 @@ const App = () => {
     });
   }, []);
 
+  console.log(search);
+
   return (
     <div>
       Search: <input value={search} onChange={handleSearchChange} />
