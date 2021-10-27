@@ -84,3 +84,14 @@ describe('total likes', () => {
     expect(result).toBe(36)
   })
 });
+
+describe('favorite blog', () => {
+  test('of one blog is that blog', () => {
+    const result = listHelper.favoriteBlog(listWithOneBlog)
+    expect(result.likes).toEqual(5)
+  })
+  test('of many blogs is the one with the most likes', () => {
+    const result = listHelper.favoriteBlog(blogs)
+    expect(result.likes).toEqual(12)
+  })
+})

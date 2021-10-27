@@ -3,14 +3,31 @@ const dummy = (blogs) => {
 }
 
 const totalLikes = (blogs) => {
-    let t = 0;
+    let total = 0;
     blogs.forEach(blog => {
-        t = t + blog.likes;
+        total = total + blog.likes;
     });
-    return t;
+    return total;
+}
+
+const favoriteBlog = (blogs) => {
+    let favorite = 0;
+    let result = {};
+    blogs.forEach(blog => {
+        if (blog.likes >= favorite) {
+            favorite = blog.likes;
+            result = {
+                title: blog.title,
+                author: blog.author,
+                likes: blog.likes
+            }
+        }
+    })
+    return result;
 }
 
 module.exports = {
     dummy,
-    totalLikes
+    totalLikes,
+    favoriteBlog,
 }
