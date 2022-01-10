@@ -48,7 +48,7 @@ const blogs = [
     url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
     likes: 2,
     __v: 0
-  }  
+  }
 ]
 
 const listWithOneBlog = [
@@ -107,5 +107,17 @@ describe('most blogs', () => {
     expect(result.blogs).toBe(1);
     expect(result.author).toBe('Edsger W. Dijkstra');
 
+  })
+})
+describe('most likes', () => {
+  test('in a list of blogs', () => {
+    const result = listHelper.mostLikes(blogs);
+    expect(result.likes).toBe(17);
+    expect(result.author).toBe('Edsger W. Dijkstra')
+  })
+  test('when the list has only one blog', () => {
+    const result = listHelper.mostLikes(listWithOneBlog)
+    expect(result.likes).toBe(5);
+    expect(result.author).toBe('Edsger W. Dijkstra');
   })
 })
