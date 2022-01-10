@@ -73,8 +73,6 @@ const mostLikes = (blogs) => {
         author: bestAuthor,
         likes: max
     }
-    console.log(result.likes)
-    console.log(result.author)
     return result;
 }
 
