@@ -95,3 +95,17 @@ describe('favorite blog', () => {
     expect(result.likes).toEqual(12)
   })
 })
+
+describe('most blogs', () => {
+  test('in a list of blogs', () => {
+    const result = listHelper.mostBlogs(blogs);
+    expect(result.blogs).toBe(3);
+    expect(result.author).toBe('Robert C. Martin')
+  })
+  test('when the list has only one blog', () => {
+    const result = listHelper.mostBlogs(listWithOneBlog)
+    expect(result.blogs).toBe(1);
+    expect(result.author).toBe('Edsger W. Dijkstra');
+
+  })
+})
