@@ -4,9 +4,9 @@
   "description": "Full Stack Open Part 4 Bloglist Exercise",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "jest --verbose"
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "test": "NODE_ENV=test jest --verbose --runInBand"
   },
   "author": "Siam T Bhuiyan",
   "license": "MIT",
@@ -15,7 +15,8 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^6.0.9",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "supertest": "^6.2.0"
   },
   "devDependencies": {
     "jest": "^27.3.1"
