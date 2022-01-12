@@ -5,7 +5,6 @@ const helper = require('../utils/list_helper')
 const api = supertest(app)
 
 const Blog = require('../models/blog.js')
-const { application } = require('express')
 
 beforeEach (async () => {
     await Blog.deleteMany({})
@@ -92,6 +91,22 @@ test('deleting a blog', async () => {
     expect(blogsAtEnd).toHaveLength(blogsAtStart.length - 1)
     const content = blogsAtEnd.map(b => b.title)
     expect(content).not.toContain(blogsAtStart[0].title)
+})
+
+test('updating a blog', async () => {
+    const blogsAtStart = await Blog.find({})
+
+    const updatedBlog = {
+        likes: 100,
+    }
+
+    await api
+        .put(`/api/blogs/${blogsAtStart[0].id}`)
+        .send(updatedBlog)
+        .expect(200)
+    
+    const blogsAtEnd = await Blog.find({})
+    expect(blogsAtEnd[0].likes).toBe(updatedBlog.likes)
 })
 
 afterAll(() => {
