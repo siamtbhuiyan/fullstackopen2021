@@ -68,6 +68,18 @@ test('likes is 0 if there is no likes property in the request', async () => {
     expect(blogsJSON[length].likes).toBe(0)
 })
 
+test('bad request if the title and url are missing', async () => {
+    const newBlog = {
+        author: 'Edsger W. Dijkstra',
+        likes: 5
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })

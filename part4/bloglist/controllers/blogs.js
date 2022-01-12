@@ -16,7 +16,11 @@ blogsRouter.get('/', async (request, response) => {
     })
   
     const saved = await blog.save()
-    response.json(saved)
+    if (saved.title && saved.url) {
+      response.json(saved)
+    } else {
+      response.status(400).end()
+    }
   })
 
   module.exports = blogsRouter
