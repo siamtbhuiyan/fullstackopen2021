@@ -54,7 +54,6 @@ const blogs = [
   ]
 
 const dummy = (blogs) => {
-    console.log(typeof blogs)
     return 1;
 }
 
