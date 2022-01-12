@@ -25,6 +25,11 @@ test('blogs are returned in JSON format and the correct number of blogs are retu
     expect(response.body).toHaveLength(helper.blogs.length)
 })
 
+test('blogs have a unique identifier', async () => {
+    const response = await api.get('/api/blogs')
+    expect(response.body[0].id).toBeDefined()
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
