@@ -80,6 +80,20 @@ test('bad request if the title and url are missing', async () => {
         .expect(400)
 })
 
+test('deleting a blog', async () => {
+    const blogsAtStart = await Blog.find({})
+
+    await api
+        .delete(`/api/blogs/${blogsAtStart[0].id}`)
+        .expect(204)
+    
+    const blogsAtEnd = await Blog.find({})
+
+    expect(blogsAtEnd).toHaveLength(blogsAtStart.length - 1)
+    const content = blogsAtEnd.map(b => b.title)
+    expect(content).not.toContain(blogsAtStart[0].title)
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
