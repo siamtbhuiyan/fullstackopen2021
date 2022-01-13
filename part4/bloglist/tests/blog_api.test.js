@@ -21,8 +21,8 @@ test('blogs are returned in JSON format and the correct number of blogs are retu
         .expect(200)
         .expect('Content-Type', /application\/json/)
 
-    const response = await api.get('/api/blogs')
-    expect(response.body).toHaveLength(helper.blogs.length)
+    const response = await Blog.find({})
+    expect(response).toHaveLength(helper.blogs.length)
 })
 
 test('blogs have a unique identifier', async () => {

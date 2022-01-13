@@ -36,6 +36,25 @@ const blogs = [
       likes: 2
     }
 ]
+
+const users = [
+    {
+        username: "johndoe",
+        name: "John Doe",
+        password: "johndoe000"
+    },
+    {
+        username: "janedoe",
+        name: "Jane Doe",
+        password: "janedoe000"
+    },
+    {
+        username: "jackdoe",
+        name: "Jack Doe",
+        password: "jackdoe000"
+    }
+]
+
   
   const listWithOneBlog = [
     {
@@ -131,5 +150,6 @@ module.exports = {
     mostBlogs,
     mostLikes,
     blogs,
-    listWithOneBlog
+    listWithOneBlog,
+    users
 }
