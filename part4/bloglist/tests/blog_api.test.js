@@ -13,7 +13,7 @@ beforeEach (async () => {
         let blogObject = new Blog(blog)
         await blogObject.save()
     } 
-})
+}, 100000)
 
 test('blogs are returned in JSON format and the correct number of blogs are returned', async () => {
     await api
@@ -37,9 +37,12 @@ test('a blog can be added', async () => {
         url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
         likes: 5
       }
+
+    const token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImphY2tkb2UiLCJpZCI6IjYxZTA0YmNmMzczNWYyYjU5MTQ4YjdlNSIsImlhdCI6MTY0MjQyNjIxMn0.5DXTLBZoy-7QzHHEAWVbcVd4z9kcaYoaH4Csy4i7AEk'
     await api
         .post('/api/blogs')
         .send(newBlog)
+        .set({ Authorization: token })
         .expect(200)
         .expect('Content-Type', /application\/json/)
 
@@ -50,6 +53,24 @@ test('a blog can be added', async () => {
     expect(content).toContain('Go To Statement Considered Harmful')
 })
 
+test('fails with proper status code if token is not provided', async () => {
+    const newBlog = {
+        title: 'Go To Statement Considered Harmful',
+        author: 'Edsger W. Dijkstra',
+        url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
+        likes: 5
+      }
+
+    const token = null
+
+    await api 
+        .post('/api/blogs')
+        .send(newBlog)
+        .set({ Authorization: token })
+        .expect(401)
+        .expect('Content-Type', /application\/json/)
+})
+
 test('likes is 0 if there is no likes property in the request', async () => {
     const newBlog = {
         title: 'Go To Statement Considered Harmful',
@@ -57,9 +78,12 @@ test('likes is 0 if there is no likes property in the request', async () => {
         url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
       }
 
+      const token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImphY2tkb2UiLCJpZCI6IjYxZTA0YmNmMzczNWYyYjU5MTQ4YjdlNSIsImlhdCI6MTY0MjQyNjIxMn0.5DXTLBZoy-7QzHHEAWVbcVd4z9kcaYoaH4Csy4i7AEk'
+
     await api
       .post('/api/blogs')
       .send(newBlog)
+      .set({ Authorization: token })
 
     const blogs = await Blog.find({})
     const blogsJSON = blogs.map(b => b.toJSON())
@@ -72,10 +96,12 @@ test('bad request if the title and url are missing', async () => {
         author: 'Edsger W. Dijkstra',
         likes: 5
     }
+    const token = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImphY2tkb2UiLCJpZCI6IjYxZTA0YmNmMzczNWYyYjU5MTQ4YjdlNSIsImlhdCI6MTY0MjQyNjIxMn0.5DXTLBZoy-7QzHHEAWVbcVd4z9kcaYoaH4Csy4i7AEk'
 
     await api
         .post('/api/blogs')
         .send(newBlog)
+        .set({ Authorization: token })
         .expect(400)
 })
 
