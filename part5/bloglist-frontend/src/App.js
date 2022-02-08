@@ -17,10 +17,9 @@ const App = () => {
 
   const blogFormRef = useRef()
 
-  useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+  useEffect(async () => {
+    const blogs = await blogService.getAll()
+    setBlogs(blogs)
   }, [])
 
   useEffect(() => {
@@ -31,6 +30,7 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+  
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -73,6 +73,17 @@ const App = () => {
     }, 5000)
   }
 
+  const handleLike = async (updatedBlog) => {
+    const response = await blogService.update(updatedBlog)
+    console.log(response)
+    const newBlogList = blogs.map(blog => blog.id !== updatedBlog.id ? blog : response)
+    setBlogs(newBlogList)
+    setMessage(`${updatedBlog.title} Liked`)
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+  }
+
   if (user === null) {
     return (
       <div>
@@ -104,7 +115,7 @@ const App = () => {
         <br />
         <h3>Bloglist</h3>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} updateLikes={handleLike} />
         )}
 
         
