@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-const Blog = ({blog, updateLikes}) => {
+const Blog = ({ blog, updateLikes }) => {
   const [visibility, setVisibility] = useState(false)
+  const [blogObject, setBlogObject] = useState(blog)
   let btnName = 'view'
 
   const handleVisibility = (e) => {
@@ -14,13 +15,13 @@ const Blog = ({blog, updateLikes}) => {
     btnName = 'view'
   }
 
-  const addLike = (e) => {
-    e.preventDefault()
-    const blogObject = {
+  const addLike = () => {
+    const blogObject = ({
       ...blog,
       likes: blog.likes + 1
-    }
+    })
     updateLikes(blogObject)
+    setBlogObject(blogObject)
   }
 
   const blogStyle = {
@@ -37,27 +38,27 @@ const Blog = ({blog, updateLikes}) => {
 
   if (!visibility) {
     return (
-    
+
       <div style={blogStyle}>
         <li>
-        Blog: {blog.title} {blog.author}
-        <button style={btnStyle} onClick={handleVisibility}>{btnName}</button>
+          Blog: {blog.title} {blog.author}
+          <button style={btnStyle} onClick={handleVisibility}>{btnName}</button>
         </li>
       </div>
     )
   } else {
     return (
-    
+
       <div style={blogStyle}>
         <li>
-        Blog: {blog.title} {blog.author}
-        <button style={btnStyle} onClick={handleVisibility}>{btnName}</button>
+          Blog: {blog.title} {blog.author}
+          <button style={btnStyle} onClick={handleVisibility}>{btnName}</button>
         </li>
         <li>
           Link: {blog.url}
         </li>
         <li>
-          Likes: {blog.likes}
+          Likes: {blogObject.likes}
           <button style={btnStyle} onClick={addLike}>Like</button>
         </li>
         <li>
@@ -67,6 +68,6 @@ const Blog = ({blog, updateLikes}) => {
     )
   }
 
-  }
+}
 
 export default Blog

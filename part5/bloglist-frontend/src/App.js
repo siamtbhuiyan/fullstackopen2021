@@ -75,9 +75,8 @@ const App = () => {
 
   const handleLike = async (updatedBlog) => {
     const response = await blogService.update(updatedBlog)
-    console.log(response)
-    const newBlogList = blogs.map(blog => blog.id !== updatedBlog.id ? blog : response)
-    setBlogs(newBlogList)
+    console.log(response.likes)
+    setBlogs(blogs.map(blog => blog.id !== updatedBlog.id ? blog : response))
     setMessage(`${updatedBlog.title} Liked`)
     setTimeout(() => {
       setMessage(null)
