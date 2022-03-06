@@ -83,6 +83,8 @@ const App = () => {
       setMessage(null)
     }, 5000)
   }
+  
+  const byLikes = (a, b) => b.likes - a.likes;
 
   if (user === null) {
     return (
@@ -114,7 +116,7 @@ const App = () => {
         </Togglable>
         <br />
         <h3>Bloglist</h3>
-        {blogs.map(blog =>
+        {blogs.sort(byLikes).map(blog =>
           <Blog key={blog.id} blog={blog} updateLikes={handleLike} />
         )}
 
