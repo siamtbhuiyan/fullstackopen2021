@@ -17,9 +17,11 @@ const Blog = ({ blog, updateLikes }) => {
 
   const addLike = () => {
     const blogObject = ({
-      ...blog,
-      likes: blog.likes + 1
-    })
+    ...blog,
+    likes: blog.likes + 1,
+  })
+    
+  console.log(blog)
     updateLikes(blogObject)
     setBlogObject(blogObject)
   }
