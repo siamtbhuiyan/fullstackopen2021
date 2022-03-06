@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-const Blog = ({ blog, updateLikes }) => {
+const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
   const [visibility, setVisibility] = useState(false)
   const [blogObject, setBlogObject] = useState(blog)
   let btnName = 'view'
@@ -20,10 +20,13 @@ const Blog = ({ blog, updateLikes }) => {
     ...blog,
     likes: blog.likes + 1,
   })
-    
-  console.log(blog)
+
     updateLikes(blogObject)
     setBlogObject(blogObject)
+  }
+
+  const handleDelete = () => {
+    deleteBlog(blog)
   }
 
   const blogStyle = {
@@ -66,6 +69,7 @@ const Blog = ({ blog, updateLikes }) => {
         <li>
           User: {blog.user.name}
         </li>
+        {(blog.user.username === user.username ? <button onClick={handleDelete} style={btnStyle}>Delete</button> : null)}
       </div>
     )
   }

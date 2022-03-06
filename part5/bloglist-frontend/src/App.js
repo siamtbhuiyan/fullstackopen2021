@@ -83,6 +83,17 @@ const App = () => {
       setMessage(null)
     }, 5000)
   }
+
+  const handleDelete = async (blogToDelete) => {
+    if (window.confirm(`Would you like to DELETE ${blogToDelete.title}`)) {
+      blogService.remove(blogToDelete)
+      setBlogs(blogs.filter(blog => blog.id !== blogToDelete.id))
+      setMessage(`${blogToDelete.title} DELETED`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    }
+  }
   
   const byLikes = (a, b) => b.likes - a.likes;
 
@@ -117,10 +128,8 @@ const App = () => {
         <br />
         <h3>Bloglist</h3>
         {blogs.sort(byLikes).map(blog =>
-          <Blog key={blog.id} blog={blog} updateLikes={handleLike} />
+          <Blog key={blog.id} blog={blog} updateLikes={handleLike} deleteBlog={handleDelete} user={user} />
         )}
-
-        
       </div>
     )
   }
