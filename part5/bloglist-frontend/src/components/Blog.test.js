@@ -26,6 +26,13 @@ describe('Test for checking the blog component', () => {
     const component  = render(<Blog blog={blog} updateLikes={mockUpdateLikes} deleteBlog={mockDeleteBlog}/>)
     expect(component.container).toHaveTextContent('Testing Blog Frontend Tester')
   })
+  test("checks that the component does not render its url or number of likes by default", () => {
+    render(<Blog blog={blog} updateLikes={mockUpdateLikes} deleteBlog={mockDeleteBlog}/>)
+    const urlElement = screen.queryByText('http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html')
+    const likeElement = screen.queryByText('34')
+    expect(urlElement).toBeNull()
+    expect(likeElement).toBeNull()
+  })
   test("checks that the blog's url and number of likes are shown when the button controlling the shown details has been clicked", () => {
     const component  = render(<Blog blog={blog} updateLikes={mockUpdateLikes} deleteBlog={mockDeleteBlog} user={mockUser}/>)
     const button = screen.getByText('view')
