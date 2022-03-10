@@ -33,4 +33,13 @@ describe('Test for checking the blog component', () => {
     expect(component.container).toHaveTextContent('http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html')
     expect(component.container).toHaveTextContent('34')
   })
+  test("ensures that if the like button is clicked twice, the event handler the component received as props is called twice", () => {
+    const component  = render(<Blog blog={blog} updateLikes={mockUpdateLikes} deleteBlog={mockDeleteBlog} user={mockUser}/>)
+    const viewButton = screen.getByText('view')
+    userEvent.click(viewButton)
+    const likeButton = screen.getByText('Like')
+    userEvent.click(likeButton)
+    userEvent.click(likeButton)
+    expect(mockUpdateLikes.mock.calls).toHaveLength(2)
+  })
 })
