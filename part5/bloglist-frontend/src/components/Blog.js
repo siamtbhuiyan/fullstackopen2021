@@ -46,7 +46,7 @@ const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
   if (!visibility) {
     return (
 
-      <div style={blogStyle}>
+      <div style={blogStyle} className="blogHidden">
         <li>
           Blog: {blog.title} {blog.author}
           <button style={btnStyle} onClick={handleVisibility}>{btnName}</button>
@@ -56,7 +56,7 @@ const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
   } else {
     return (
 
-      <div style={blogStyle}>
+      <div style={blogStyle} className="blogVissible">
         <li>
           Blog: {blog.title} {blog.author}
           <button style={btnStyle} onClick={handleVisibility}>{btnName}</button>
@@ -78,11 +78,11 @@ const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
 
 }
 
-Blog.propTypes = {
-  blog: PropTypes.object.isRequired,
-  updateLikes: PropTypes.func.isRequired,
-  deleteBlog: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
-}
+// Blog.propTypes = {
+//   blog: PropTypes.object.isRequired,
+//   updateLikes: PropTypes.func.isRequired,
+//   deleteBlog: PropTypes.func.isRequired,
+//   user: PropTypes.object.isRequired
+// }
 
 export default Blog
