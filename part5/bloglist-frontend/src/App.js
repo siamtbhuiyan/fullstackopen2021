@@ -20,7 +20,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -31,11 +31,11 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
-  
+
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    
+
     try {
       const user = await loginService.login({
         username, password,
@@ -43,7 +43,7 @@ const App = () => {
 
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -62,7 +62,7 @@ const App = () => {
     blogService.setToken(null)
     setUser(null)
   }
-  
+
   const handleCreate = async (blogObject) => {
     blogFormRef.current.toggleVisibility()
     const response = await blogService.create(blogObject)
@@ -92,20 +92,20 @@ const App = () => {
       }, 5000)
     }
   }
-  
-  const byLikes = (a, b) => b.likes - a.likes;
+
+  const byLikes = (a, b) => b.likes - a.likes
 
   if (user === null) {
     return (
       <div>
         <Notification message={message} errorMessage={errorMessage}/>
         <h2>Log in to application</h2>
-        <LoginForm 
-        handleLogin={handleLogin} 
-        username={username} 
-        password={password} 
-        handleUsernameChange={({ target }) => setUsername(target.value)} 
-        handlePasswordChange={({ target }) => setPassword(target.value)}/>
+        <LoginForm
+          handleLogin={handleLogin}
+          username={username}
+          password={password}
+          handleUsernameChange={({ target }) => setUsername(target.value)}
+          handlePasswordChange={({ target }) => setPassword(target.value)}/>
       </div>
     )
   } else {
@@ -114,13 +114,13 @@ const App = () => {
         <h2>Blogs</h2>
         <Notification message={message} errorMessage={errorMessage}/>
         <form onSubmit={handleLogout}>
-        <span>{user.name} is logged in    </span>
-        <button type='submit'>logout</button>
+          <span>{user.name} is logged in    </span>
+          <button type='submit'>logout</button>
         </form>
         <br />
         <Togglable buttonLabel="Create New Blog" ref={blogFormRef}>
           <BlogForm
-          createBlog={handleCreate}
+            createBlog={handleCreate}
           />
         </Togglable>
         <br />

@@ -19,9 +19,9 @@ const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
 
   const addLike = () => {
     const blogObject = ({
-    ...blog,
-    likes: blog.likes + 1,
-  })
+      ...blog,
+      likes: blog.likes + 1,
+    })
 
     updateLikes(blogObject)
     setBlogObject(blogObject)
@@ -32,15 +32,15 @@ const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
   }
 
   const blogStyle = {
-    listStyle: "none",
-    padding: "20px",
-    backgroundColor: "#ddd",
-    margin: "10px 0",
-    fontSize: "20px"
+    listStyle: 'none',
+    padding: '20px',
+    backgroundColor: '#ddd',
+    margin: '10px 0',
+    fontSize: '20px'
   }
 
   const btnStyle = {
-    marginLeft: "8px",
+    marginLeft: '8px',
   }
 
   if (!visibility) {
@@ -78,11 +78,11 @@ const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
 
 }
 
-// Blog.propTypes = {
-//   blog: PropTypes.object.isRequired,
-//   updateLikes: PropTypes.func.isRequired,
-//   deleteBlog: PropTypes.func.isRequired,
-//   user: PropTypes.object.isRequired
-// }
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  updateLikes: PropTypes.func.isRequired,
+  deleteBlog: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
+}
 
 export default Blog
