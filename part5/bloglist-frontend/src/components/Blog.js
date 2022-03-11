@@ -49,7 +49,7 @@ const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
       <div style={blogStyle} className="blogHidden">
         <li>
           Blog: {blog.title} {blog.author}
-          <button style={btnStyle} onClick={handleVisibility}>{btnName}</button>
+          <button style={btnStyle} onClick={handleVisibility} className="visibility-button">{btnName}</button>
         </li>
       </div>
     )
@@ -66,7 +66,7 @@ const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
         </li>
         <li>
           Likes: {blogObject.likes}
-          <button style={btnStyle} onClick={addLike}>Like</button>
+          <button style={btnStyle} onClick={addLike} className="like-button">Like</button>
         </li>
         <li>
           User: {blog.user.name}

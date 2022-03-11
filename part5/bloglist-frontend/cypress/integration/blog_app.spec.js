@@ -49,4 +49,25 @@ describe('Blog app', function() {
       cy.contains('Blog created by Cypress added by Cypress')
     })
   })
+
+  describe('Users can', function() {
+    beforeEach(function() {
+      cy.get('#username').type('siam')
+      cy.get('#password').type('bhuiyan')
+      cy.get('#login-button').click()
+
+      cy.get('#add-blog').click()
+      cy.get('#title').type('Blog created by Cypress')
+      cy.get('#author').type('Cypress')
+      cy.get('#url').type('https://somerandomurl.com')
+      cy.get('#submit-blog').click()
+    })
+
+    it('Like a blog', function() {
+      cy.get('.visibility-button').click()
+      cy.get('.like-button').click()
+
+      cy.contains('Likes: 1')
+    })
+  })
 })
