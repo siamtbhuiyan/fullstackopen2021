@@ -50,7 +50,7 @@ blogsRouter.put('/:id', async (request, response) => {
 
   blog = {
     ...request.body,
-    user: request.body.user.id
+    user: request.body.user.id,
   }
 
   const updatedBlog = await Blog

@@ -69,13 +69,12 @@ const Blog = ({ blog, updateLikes, deleteBlog, user }) => {
           <button style={btnStyle} onClick={addLike} className="like-button">Like</button>
         </li>
         <li>
-          User: {blog.user.name}
+          User: {blogObject.user.name}
         </li>
-        {(blog.user.username === user.username ? <button onClick={handleDelete} style={btnStyle}>Delete</button> : null)}
+        {(blogObject.user.username === user.username ? <button onClick={handleDelete} style={btnStyle} className="delete-button">Delete</button> : null)}
       </div>
     )
   }
-
 }
 
 Blog.propTypes = {
