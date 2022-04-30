@@ -3,8 +3,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import React from 'react'
 
 const AnecdoteList = () => {
-    let anecdotes = useSelector(state => state.anecodotes)
+    const anecdotes = useSelector(state => state.anecdotes)
     const dispatch = useDispatch()
+    const filteredanecdotes = useSelector(state => state.filter)
+    const regex = new RegExp( filteredanecdotes, 'i' )
+
+    const filteranecdotes = (anecdotes, filteredanecdotes, regex) => {
+      if (filteredanecdotes === "") {
+        return anecdotes
+      } else {
+        return anecdotes.filter(anecdotes => anecdotes.content.match(regex))
+      }
+    }
+
+    const anecdotesList = filteranecdotes(anecdotes, filteredanecdotes, regex)
 
     const vote = (id, content) => {
       dispatch({ type: 'anecdotes/addVote', payload: id })
@@ -17,9 +29,7 @@ const AnecdoteList = () => {
 
   return (
     <div>
-        <br />
-        <br />
-    {anecdotes.slice().sort(byVotes).map(anecdote =>
+    {anecdotesList.slice().sort(byVotes).map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
