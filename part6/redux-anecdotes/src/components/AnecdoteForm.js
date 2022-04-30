@@ -7,9 +7,11 @@ const AnecdoteForm = () => {
     const addAnecdotes = (e) => {
         e.preventDefault()
         const content = e.target.anecdote.value
+        const notification = `You added ${content}`
         e.target.anecdote.value = ""
         dispatch({ type: 'anecdotes/createAnecdotes', payload: content })
-
+        dispatch({ type: "notification/setNotification", payload: notification })
+        setTimeout(() => {dispatch({ type:"notification/removeNotification" })}, 5000)
     }
     
   return (

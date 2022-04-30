@@ -3,11 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import React from 'react'
 
 const AnecdoteList = () => {
-    let anecdotes = useSelector(state => state)
+    let anecdotes = useSelector(state => state.anecodotes)
     const dispatch = useDispatch()
 
-    const vote = (id) => {
+    const vote = (id, content) => {
       dispatch({ type: 'anecdotes/addVote', payload: id })
+      const notification = `You voted for "${content}"`
+      dispatch({ type: "notification/setNotification", payload: notification })
+      setTimeout(() => {dispatch({ type:"notification/removeNotification" })}, 5000)
     }
 
   const byVotes = (a, b) => b.votes - a.votes
@@ -23,7 +26,7 @@ const AnecdoteList = () => {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+            <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
           </div>
         </div>
       )}
