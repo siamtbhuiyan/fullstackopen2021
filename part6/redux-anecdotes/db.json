@@ -47,8 +47,13 @@
     },
     {
       "content": "new A",
-      "votes": 0,
+      "votes": 1,
       "id": "RL_bzJR"
+    },
+    {
+      "content": "After connect",
+      "votes": 0,
+      "id": "y0Uqywn"
     }
   ]
 }

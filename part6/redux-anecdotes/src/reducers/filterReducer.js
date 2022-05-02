@@ -7,11 +7,11 @@ const filterSlice = createSlice ({
     name: "filter",
     initialState,
     reducers: {
-        filteranecdotes(state, action) {
+        filterAnecdotes(state, action) {
             return state.replace(state, action.payload)
         }
     }
 })
 
-export const { filteranecdotes } = filterSlice.actions
+export const { filterAnecdotes } = filterSlice.actions
 export default filterSlice.reducer
