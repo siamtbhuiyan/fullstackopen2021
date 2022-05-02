@@ -35,7 +35,6 @@ export const addVotes = (id) => {
     const anecdotes = await anecdoteService.getAll()
     const anecdoteToVote = anecdotes.find(a => a.id === id)
     const votedAnecdote = await anecdoteService.vote(anecdoteToVote, id)
-    console.log("VOTED", votedAnecdote)
     const updated = anecdotes.map(anecdote => 
       anecdote.id !== id ? anecdote : votedAnecdote
     )
