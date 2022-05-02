@@ -19,7 +19,6 @@ const AnecdoteList = () => {
     }
 
     const anecdotesList = filteranecdotes(anecdotes, filteredanecdotes, regex)
-
     const vote = (id, content) => {
       dispatch(addVotes(id))
       dispatch(showNotification(`You voted for "${content}"`, 5))
