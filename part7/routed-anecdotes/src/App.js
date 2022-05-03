@@ -11,6 +11,9 @@ import {
 } from "react-router-dom"
 
 // const Menu = () => {
+//   const padding = {
+//     paddingRight: 5
+//   }
 //   return (
 //     <div>
 //       <a href='#' style={padding}>anecdotes</a>
@@ -136,9 +139,9 @@ const App = () => {
   return (
     <div>
       <div>
-        <Link style={padding} to="/">Home</Link>
-        <Link style={padding} to="/create">Create</Link>
-        <Link style={padding} to="/about">About</Link>
+        <Link style={padding} to="/">anecdotes</Link>
+        <Link style={padding} to="/create">create new</Link>
+        <Link style={padding} to="/about">about</Link>
       </div>
       <Routes>
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />}/>
